@@ -2,7 +2,7 @@ require "gitit"
 
 module Gitit
 
-  describe Git do
+  describe Repo do
 
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
@@ -24,13 +24,13 @@ module Gitit
       end
 
       it "will return true on valid repo" do
-        myRepo = Git.new(Dir.pwd)
-        myRepo.isAValidRepo?.should eq true 
+        myRepo = Git.new(Dir.pwd).repo
+        myRepo.valid?.should eq true 
       end
 
       it "will return false on invalid repo" do
-        myRepo = Git.new(TMP_PATH)
-        myRepo.isAValidRepo?.should eq false
+        myRepo = Git.new(TMP_PATH).repo
+        myRepo.valid?.should eq false
       end
 
     end
@@ -41,19 +41,20 @@ module Gitit
 
       before(:each) do
         FileUtils.mkpath TEST_REPO_PATH
-        @myRepo = Git.new(TEST_REPO_PATH)
+        git = Git.new(TEST_REPO_PATH)
+        @myRepo = git.repo
       end
     
       it "will initialize a new repo on an existing folder" do
-        @myRepo.isAValidRepo?.should eq false
-        lambda{@myRepo.createNewRepo}.should_not raise_error
+        @myRepo.valid?.should eq false
+        lambda{@myRepo.init}.should_not raise_error
       end
 
       it "will fail to initialize a new repo on an existing folder already initialized" do
-        @myRepo.isAValidRepo?.should eq false
-        lambda{@myRepo.createNewRepo}.should_not raise_error
-        @myRepo.isAValidRepo?.should eq true
-        lambda{@myRepo.createNewRepo}.should raise_error
+        @myRepo.valid?.should eq false
+        lambda{@myRepo.init}.should_not raise_error
+        @myRepo.valid?.should eq true
+        lambda{@myRepo.init}.should raise_error
       end
 
       after(:each) do

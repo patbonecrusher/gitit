@@ -1,7 +1,7 @@
 require "bundler/setup"
 require "gitit/version"
 require "gitit/git"
-require "gitit/config"
+require "ext/string.rb"
 
 Bundler.require(:default)
 
