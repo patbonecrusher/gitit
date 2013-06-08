@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
     "features/gitit.feature",
     "features/step_definitions/gitit_steps.rb",
     "features/support/env.rb",
+    "gitit.gemspec",
     "lib/ext/string.rb",
     "lib/gitit.rb",
     "lib/gitit/command_config.rb",
