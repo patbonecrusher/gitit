@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Bone Crusher"]
   s.date = "2013-06-08"
-  s.description = "TODO: longer description of your gem"
+  s.description = "longer description of your gem"
   s.email = "pat@covenofchaos.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
