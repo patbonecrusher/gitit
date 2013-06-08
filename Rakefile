@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/patbonecrusher/gitit"
   gem.license = "MIT"
   gem.summary = %Q{Ruby git wrapper for the command line thin}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.description = %Q{longer description of your gem}
   gem.email = "pat@covenofchaos.com"
   gem.authors = ["Bone Crusher"]
   # dependencies defined in Gemfile
