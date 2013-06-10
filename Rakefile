@@ -11,19 +11,19 @@ rescue Bundler::BundlerError => e
 end
 require 'rake'
 
-require 'jeweler'
-Jeweler::Tasks.new do |gem|
+#require 'jeweler'
+#Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "gitit"
-  gem.homepage = "http://github.com/patbonecrusher/gitit"
-  gem.license = "MIT"
-  gem.summary = %Q{Ruby git wrapper for the command line thin}
-  gem.description = %Q{longer description of your gem}
-  gem.email = "pat@covenofchaos.com"
-  gem.authors = ["Bone Crusher"]
+#  gem.name = "gitit"
+#  gem.homepage = "http://github.com/patbonecrusher/gitit"
+#  gem.license = "MIT"
+#  gem.summary = %Q{Ruby git wrapper for the command line thin}
+#  gem.description = %Q{longer description of your gem}
+#  gem.email = "pat@covenofchaos.com"
+#  gem.authors = ["Bone Crusher"]
   # dependencies defined in Gemfile
-end
-Jeweler::RubygemsDotOrgTasks.new
+#end
+#Jeweler::RubygemsDotOrgTasks.new
 
 require 'rspec/core'
 require 'rspec/core/rake_task'
