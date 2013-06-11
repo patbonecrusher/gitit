@@ -11,7 +11,6 @@ module Gitit
     def executeCommand(command)
       gitCommand = ["git", command].join(" ")
       result = `(cd #{@repo.location} && #{gitCommand})`
-      raise "failure running command" if $?.exitstatus != 0
       return result
     end
 
