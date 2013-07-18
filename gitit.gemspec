@@ -5,7 +5,7 @@ require 'gitit/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "gitit"
-  gem.version       = Gitit::VERSION
+  gem.version       = File.exist?('VERSION') ? File.read('VERSION') : Gitit::VERSION
   gem.authors       = ["Pat Laplante"]
   gem.email         = ["pat@covenofchaos.com"]
   gem.description   = %q{"ruby git command line wrapper"}
@@ -16,4 +16,5 @@ Gem::Specification.new do |gem|
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
+  gem.licenses      = ["MIT"]
 end
