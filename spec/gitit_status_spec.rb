@@ -15,6 +15,10 @@ module Gitit
         @myRepo = git.repo
         @myRepo.init
         @repoStatus = git.status
+
+        `(cd #{TEST_REPO_PATH} && git config user.email "you@example.com")`
+        `(cd #{TEST_REPO_PATH} && git config user.name "example")`
+
       end
     
       it "will tell us that the current branch is clean when nothing has been changed" do
