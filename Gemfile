@@ -21,3 +21,6 @@ gemspec
 #  gem 'simplecov', :require => false, :group => :test
 #end
 
+group :test do
+  gem 'rake'
+end
