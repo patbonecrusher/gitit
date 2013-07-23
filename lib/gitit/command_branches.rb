@@ -1,36 +1,41 @@
 require "bundler/setup"
-require "gitit"
+require "gitit/command_executor"
 
 Bundler.require(:default)
 
 module Gitit
+
+  # ---------------------------------------------------------------------------
+  # ---------------------------------------------------------------------------
+  class Branches
+    include CommandExecutor
     
-  # ---------------------------------------------------------------------------
-  # ---------------------------------------------------------------------------
-  class Repo
-    attr_reader :location;
-  
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    def initialize(location)
-      raise "Invalid path specified" unless File.directory? location
-      @location = location
+    def initialize(repo)
+      @repo = repo
     end
-  
+
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    def valid?
-      commandres = `(cd #{@location} && git rev-parse --git-dir >/dev/null 2>&1)`
-      return true unless $?.exitstatus != 0 
+    def existsLocally?(name)
+      branches = executeCommand("branch --no-color | sed 's/^[* ] //'")
+      executeCommand("branch --no-color | sed 's/^[* ] //' | grep #{name}")
+      return true if $?.exitstatus == 0
       return false
     end
-  
-    # -------------------------------------------------------------------------
-    # -------------------------------------------------------------------------
-    def init
-      raise "failed to create repo" if valid?
-      commandres = `(cd #{@location} && git init)`
-    end
-  end
     
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    def existsRemotely?(name)
+      branches = executeCommand("branch -r --no-color | sed 's/^[* ] //'")
+      executeCommand("branch --no-color | sed 's/^[* ] //' | grep #{name}")
+      return true if $?.exitstatus == 0
+      return false
+    end
+    
+  end
+
 end
+
+

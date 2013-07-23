@@ -11,6 +11,7 @@ module Gitit
       TMP_PATH = "/tmp/"
       BAD_PATH = "/adsdsadasdsa"
       TEST_REPO_PATH = "/tmp/test_git"
+      TEST_REPO_PATH_BARE = "/tmp/test_git_bare"
     
       before(:each) do
       end

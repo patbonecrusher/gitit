@@ -1,8 +1,11 @@
 require "bundler/setup"
 require "gitit"
 require "gitit/repo"
-require "gitit/command_config"
-require "gitit/command_status"
+Dir[File.dirname(__FILE__) + "/command_*.rb"].each do |file|
+  require file
+end
+#require "gitit/command_config"
+#require "gitit/command_status"
 
 Bundler.require(:default)
 
@@ -14,6 +17,7 @@ module Gitit
     attr_reader :repo;
     attr_reader :config;
     attr_reader :status;
+    attr_reader :branches;
 
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
@@ -21,6 +25,7 @@ module Gitit
       @repo = Repo.new(location)
       @config = Config.new(repo)
       @status = Status.new(repo)
+      @branches = Branches.new(repo)
     end
   end
 
