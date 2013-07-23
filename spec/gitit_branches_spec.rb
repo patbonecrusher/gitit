@@ -15,6 +15,9 @@ module Gitit
         @myRepo.init
         @repoBranches = git.branches
 
+        `(cd #{TEST_REPO_PATH} && git config user.email "you@example.com")`
+        `(cd #{TEST_REPO_PATH} && git config user.name "example")`
+
         File.open("#{TEST_REPO_PATH}/out.txt", "w+") { |file| file.write("boo!") }
         `(cd #{TEST_REPO_PATH} && git add #{TEST_REPO_PATH}/out.txt && git commit -am "wip")`
         
