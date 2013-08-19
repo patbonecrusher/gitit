@@ -1,7 +1,4 @@
-require "bundler/setup"
 require "gitit"
-
-Bundler.require(:default)
 
 module Gitit
     

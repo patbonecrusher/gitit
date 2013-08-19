@@ -1,7 +1,4 @@
-require "bundler/setup"
 require "gitit/command_executor"
-
-Bundler.require(:default)
 
 module Gitit
 

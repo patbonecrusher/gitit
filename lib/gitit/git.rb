@@ -1,12 +1,9 @@
-require "bundler/setup"
 require "gitit"
 require "gitit/repo"
 
 Dir[File.dirname(__FILE__) + "/command_*.rb"].each do |file|
   require file
 end
-
-Bundler.require(:default)
 
 module Gitit
   
