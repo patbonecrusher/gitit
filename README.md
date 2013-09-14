@@ -1,6 +1,6 @@
 # Gitit
 
-[![Build Status](https://travis-ci.org/patbonecrusher/gitit.png?branch=master)]<a href="https://codeclimate.com/github/patbonecrusher/gitit"><img src="https://codeclimate.com/github/patbonecrusher/gitit.png" /></a>
+[![Build Status](https://travis-ci.org/patbonecrusher/gitit.png?branch=master)](<a href="https://codeclimate.com/github/patbonecrusher/gitit"><img src="https://codeclimate.com/github/patbonecrusher/gitit.png" /></a>)
 
 TODO: Write a gem description
 
