@@ -30,6 +30,12 @@ module Gitit
       return true if $?.exitstatus == 0
       return false
     end
+
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    def updateFromRemote(branchName, remote)
+
+    end
     
   end
 
