@@ -36,11 +36,24 @@ module Gitit
       end
 
       it "will successfully find a valid remote branch" do
-        @repoBranches.existsRemotely?("master").should eq true
+        @repoBranches.existsRemotely?("master", "origin").should eq true
       end
 
       it "will fail to find an invalid remote branch" do
-        @repoBranches.existsRemotely?("asdasdsad").should eq false
+        @repoBranches.existsRemotely?("asdasdsad", "origin").should eq false
+      end
+
+      it "will create a local branch successfully" do
+        @repoBranches.createLocalBranch("mybranch").should eq true
+        @repoBranches.existsLocally?("mybranch").should eq true
+        @repoBranches.existsRemotely?("mybranch", "origin").should eq false
+      end
+
+      it "will push a local branch to the remote" do
+        @repoBranches.createLocalBranch("mybranch").should eq true
+        @repoBranches.existsRemotely?("mybranch", "origin").should eq false
+        @repoBranches.pushLocalBranchToRemote("mybranch", "origin").should eq true        
+        @repoBranches.existsRemotely?("mybranch", "origin").should eq true
       end
 
       after(:each) do

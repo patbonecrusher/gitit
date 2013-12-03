@@ -16,7 +16,6 @@ module Gitit
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
     def existsLocally?(name)
-      branches = executeCommand("branch --no-color | sed 's/^[* ] //'")
       executeCommand("branch --no-color | sed 's/^[* ] //' | grep #{name}")
       return true if $?.exitstatus == 0
       return false
@@ -24,9 +23,26 @@ module Gitit
     
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    def existsRemotely?(name)
-      branches = executeCommand("branch -r --no-color | sed 's/^[* ] //'")
-      executeCommand("branch --no-color | sed 's/^[* ] //' | grep #{name}")
+    def existsRemotely?(name, remote)
+      executeCommand("branch -r --no-color | sed 's/^[* ] //' | grep #{remote}/#{name}")
+      return true if $?.exitstatus == 0
+      return false
+    end
+
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    def createLocalBranch(name)
+      raise "a branch with that name already exists" if existsLocally?(name)
+      executeCommand("branch #{name}")
+      return true if $?.exitstatus == 0
+      return false
+    end
+
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    def pushLocalBranchToRemote(name, remote)
+      raise "a branch with that name does not exists" unless existsLocally?(name)
+      executeCommand("push #{remote} #{name}")
       return true if $?.exitstatus == 0
       return false
     end

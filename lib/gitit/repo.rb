@@ -25,7 +25,7 @@ module Gitit
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
     def init
-      raise "failed to create repo" if valid?
+      raise "already a git repo" if valid?
       commandres = `(cd #{@location} && git init)`
     end
   end
