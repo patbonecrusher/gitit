@@ -32,17 +32,16 @@ module Gitit
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
     def createLocalBranch(name)
-      raise "a branch with that name already exists" if existsLocally?(name)
-      executeCommand("branch #{name}")
+      executeCommand("branch --quiet #{name}")
       return true if $?.exitstatus == 0
       return false
     end
 
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    def pushLocalBranchToRemote(name, remote)
-      raise "a branch with that name does not exists" unless existsLocally?(name)
-      executeCommand("push #{remote} #{name}")
+    def pushLocalBranchToRemote(name, remote, force)
+      executeCommand("push --quiet -f #{remote} #{name}") if force
+      executeCommand("push --quiet #{remote} #{name}") unless force
       return true if $?.exitstatus == 0
       return false
     end

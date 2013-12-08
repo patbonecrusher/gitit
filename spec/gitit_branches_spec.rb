@@ -43,19 +43,6 @@ module Gitit
         @repoBranches.existsRemotely?("asdasdsad", "origin").should eq false
       end
 
-      it "will create a local branch successfully" do
-        @repoBranches.createLocalBranch("mybranch").should eq true
-        @repoBranches.existsLocally?("mybranch").should eq true
-        @repoBranches.existsRemotely?("mybranch", "origin").should eq false
-      end
-
-      it "will push a local branch to the remote" do
-        @repoBranches.createLocalBranch("mybranch").should eq true
-        @repoBranches.existsRemotely?("mybranch", "origin").should eq false
-        @repoBranches.pushLocalBranchToRemote("mybranch", "origin").should eq true        
-        @repoBranches.existsRemotely?("mybranch", "origin").should eq true
-      end
-
       after(:each) do
         FileUtils.rm_rf TEST_REPO_PATH
         FileUtils.rm_rf TEST_REPO_PATH_BARE
@@ -83,6 +70,38 @@ module Gitit
 
       end
     
+      it "will fail to create a local branch" do
+        @repoBranches.createLocalBranch("mybranch").should eq true
+        @repoBranches.createLocalBranch("mybranch").should eq false
+      end
+
+      it "will create a local branch successfully" do
+        @repoBranches.createLocalBranch("mybranch").should eq true
+        @repoBranches.existsLocally?("mybranch").should eq true
+        @repoBranches.existsRemotely?("mybranch", "origin").should eq false
+      end
+
+      it "will fail to push a local branch to an invalid remote" do
+        @repoBranches.createLocalBranch("mybranch").should eq true
+        @repoBranches.existsRemotely?("mybranch", "origin").should eq false
+        @repoBranches.pushLocalBranchToRemote("mybranch", "badorigin", false).should eq false        
+        @repoBranches.existsRemotely?("mybranch", "origin").should eq false
+      end
+
+      it "will push a local branch to the remote not forcing it" do
+        @repoBranches.createLocalBranch("mybranch").should eq true
+        @repoBranches.existsRemotely?("mybranch", "origin").should eq false
+        @repoBranches.pushLocalBranchToRemote("mybranch", "origin", false).should eq true        
+        @repoBranches.existsRemotely?("mybranch", "origin").should eq true
+      end
+
+      it "will push a local branch to the remote forcing it" do
+        @repoBranches.createLocalBranch("mybranch").should eq true
+        @repoBranches.existsRemotely?("mybranch", "origin").should eq false
+        @repoBranches.pushLocalBranchToRemote("mybranch", "origin", true).should eq true        
+        @repoBranches.existsRemotely?("mybranch", "origin").should eq true
+      end
+
       after(:each) do
         FileUtils.rm_rf TEST_REPO_PATH
         FileUtils.rm_rf TEST_REPO_PATH_BARE

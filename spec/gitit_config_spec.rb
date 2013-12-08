@@ -30,6 +30,17 @@ module Gitit
         value.should eq KEY_VALUE
       end
 
+      it "will set the specified global value successfully" do
+        lambda{@config.setGlobalValue(KEY_NAME, KEY_VALUE)}.should_not raise_error
+      end
+      
+      it "will retrieve the specified global value successfully" do
+        value = ""
+        lambda{@config.setGlobalValue(KEY_NAME, KEY_VALUE)}.should_not raise_error
+        lambda{value = @config.getGlobalValue(KEY_NAME)}.should_not raise_error
+        value.should eq KEY_VALUE
+      end
+
       after(:each) do
         FileUtils.rm_rf TEST_REPO_PATH
       end
