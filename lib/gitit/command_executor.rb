@@ -7,7 +7,7 @@ module Gitit
 
     def executeCommand(command)
       gitCommand = ["git", command].join(" ")
-      result = `(cd #{@repo.location} && #{gitCommand})`
+      result = `(cd #{@repo.location} && #{gitCommand} 2>&1)`
       return result
     end
 

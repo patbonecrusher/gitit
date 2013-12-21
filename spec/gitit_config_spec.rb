@@ -1,50 +1,73 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
-#require "gitit"
 
 module Gitit
 
   describe Config do
 
-    # -------------------------------------------------------------------------
-    # -------------------------------------------------------------------------
-    describe "#Config" do
+    # -----------------------------------------------------------------------------
+    # -----------------------------------------------------------------------------
+    ['--local', '--global', '--file /tmp/foo'].each { |mode|
 
-      KEY_NAME = "mytest.bla"
-      KEY_VALUE = "osd aas as dsaadk".force_encoding("UTF-8")
-
-      before(:each) do
-        FileUtils.mkpath TEST_REPO_PATH
-        @git = Git.new(TEST_REPO_PATH)
-        @git.repo.init
-        @config = @git.config
-      end
-    
-      it "will set the specified local value successfully" do
-        lambda{@config.setValue(KEY_NAME, KEY_VALUE)}.should_not raise_error
-      end
+      # ---------------------------------------------------------------------------
+      # ---------------------------------------------------------------------------
+      ['mytestkey', 'mytestkey.withsub'].each {|key_section|
       
-      it "will retrieve the specified local value successfully" do
-        value = ""
-        lambda{@config.setValue(KEY_NAME, KEY_VALUE)}.should_not raise_error
-        lambda{value = @config.getValue(KEY_NAME)}.should_not raise_error
-        value.should eq KEY_VALUE
-      end
+        # -------------------------------------------------------------------------
+        # -------------------------------------------------------------------------
+        describe "#TestConfig #{mode} with key_section #{key_section}" do
 
-      it "will set the specified global value successfully" do
-        lambda{@config.setGlobalValue(KEY_NAME, KEY_VALUE)}.should_not raise_error
-      end
-      
-      it "will retrieve the specified global value successfully" do
-        value = ""
-        lambda{@config.setGlobalValue(KEY_NAME, KEY_VALUE)}.should_not raise_error
-        lambda{value = @config.getGlobalValue(KEY_NAME)}.should_not raise_error
-        value.should eq KEY_VALUE
-      end
+          before(:each) do
+            FileUtils.mkpath TEST_REPO_PATH
+            @git = Git.new(TEST_REPO_PATH)
+            @git.repo.init
+            @config = Config.new(@git.repo, mode)
 
-      after(:each) do
-        FileUtils.rm_rf TEST_REPO_PATH
-      end
+            @key_name = "bla"
+            @key = key_section + '.' + @key_name
+            @key_value = "osd aas as dsaadk".force_encoding("UTF-8")
 
-    end
+          end
+        
+          it "will set the specified key to the specified value successfully" do
+            lambda{@config.setValue(@key, @key_value)}.should_not raise_error
+
+            `(git config #{mode} --unset #{@key})`
+            `(cd #{TEST_REPO_PATH} && git config #{mode} --remove-section #{key_section})`
+          end
+          
+          it "will retrieve the specified value successfully" do
+            value = ""
+            lambda{@config.setValue(@key, @key_value)}.should_not raise_error
+            lambda{value = @config.getValue(@key)}.should_not raise_error
+            value.should eq @key_value
+
+            `(git config #{mode} --unset #{@key})`
+            `(cd #{TEST_REPO_PATH} && git config #{mode} --remove-section #{key_section})`
+          end
+
+          it "will unset the specified key successfully" do
+            lambda{@config.setValue(@key, @key_value)}.should_not raise_error
+            lambda{@config.unsetValue(@key)}.should_not raise_error
+            lambda{value = @config.getValue(@key)}.should raise_error
+
+            `(cd #{TEST_REPO_PATH} && git config #{mode} --remove-section #{key_section})`
+          end
+          
+          it "will remove the specified section successfully" do
+            lambda{@config.setValue(@key, @key_value)}.should_not raise_error
+            lambda{@config.unsetValue(@key)}.should_not raise_error
+            lambda{@config.removeSection(key_section)}.should_not raise_error
+            lambda{value = @config.getValue(@key)}.should raise_error
+          end
+          
+          after(:each) do
+            FileUtils.rm_rf TEST_REPO_PATH
+          end
+
+        end
+
+      }
+    }
+
   end
 end
