@@ -43,6 +43,11 @@ module Gitit
         @repoBranches.exists_remotely?('some_random_name', 'origin').should eq false
       end
 
+      it 'will successfully return the right branch name' do
+        `(cd #{TEST_REPO_PATH} && git checkout master --quiet)`
+        @repoBranches.get_current_branch.should eq 'master'
+      end
+
       after(:each) do
         FileUtils.rm_rf TEST_REPO_PATH
         FileUtils.rm_rf TEST_REPO_PATH_BARE
@@ -52,7 +57,7 @@ module Gitit
 
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    describe "#testBranchCreationLocally" do
+    describe '#testBranchCreationLocally' do
 
       before(:each) do
         FileUtils.mkpath TEST_REPO_PATH

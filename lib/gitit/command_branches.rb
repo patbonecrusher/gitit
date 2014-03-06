@@ -15,6 +15,14 @@ module Gitit
 
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
+    def get_current_branch
+      branches = execute_command('branch --no-color')
+      branch_match = branches.each_line.select { |b| b.start_with? '* ' }
+      branch_match[0].strip.gsub(/\* /, '')
+    end
+
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     def exists_locally?(name)
       execute_command("branch --no-color | sed 's/^[* ] //' | grep #{name}")
       $?.exitstatus == 0
