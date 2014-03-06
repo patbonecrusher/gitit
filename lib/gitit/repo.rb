@@ -1,4 +1,4 @@
-require "gitit"
+require 'gitit'
 
 module Gitit
     
@@ -10,23 +10,22 @@ module Gitit
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
     def initialize(location)
-      raise "Invalid path specified" unless File.directory? location
+      raise 'Invalid path specified' unless File.directory? location
       @location = location
     end
   
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
     def valid?
-      commandres = `(cd #{@location} && git rev-parse --git-dir >/dev/null 2>&1)`
-      return true unless $?.exitstatus != 0 
-      return false
+      `(cd #{@location} && git rev-parse --git-dir >/dev/null 2>&1)`
+      $?.exitstatus == 0
     end
   
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
     def init
-      raise "already a git repo" if valid?
-      commandres = `(cd #{@location} && git init)`
+      raise 'already a git repo' if valid?
+      `(cd #{@location} && git init)`
     end
   end
     

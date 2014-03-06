@@ -1,4 +1,4 @@
-require "gitit/command_executor"
+require 'gitit/command_executor'
 
 module Gitit
 
@@ -16,35 +16,32 @@ module Gitit
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
     def clean?
-      return !unstagedFiles? && !uncommitedFiles? && !untrackedFiles?
+      !unstaged_files? && !uncommited_files? && !untracked_files?
     end
     
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    def unstagedFiles?
-      executeCommand("diff-files --name-status --diff-filter=M --exit-code")
-      return true if $?.exitstatus == 1
-      return false
+    def unstaged_files?
+      execute_command('diff-files --name-status --diff-filter=M --exit-code')
+      $?.exitstatus == 1
     end
     
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    def uncommitedFiles?
-      executeCommand("diff --cached --no-ext-diff --ignore-submodules --quiet --exit-code")
-      return true if $?.exitstatus == 1
-      return false
+    def uncommited_files?
+      execute_command('diff --cached --no-ext-diff --ignore-submodules --quiet --exit-code')
+      $?.exitstatus == 1
     end
     
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    def untrackedFiles?
-      gitRes = executeCommand("status --porcelain | grep ??")
-      return true if $?.exitstatus == 0
-      return false
+    def untracked_files?
+      execute_command('status --porcelain | grep ??')
+      $?.exitstatus == 0
     end
     
   end
 
-
 end
+
 

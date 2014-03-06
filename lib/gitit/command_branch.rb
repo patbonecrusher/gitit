@@ -1,4 +1,4 @@
-require "gitit/command_executor"
+require 'gitit/command_executor'
 
 module Gitit
 
@@ -19,9 +19,8 @@ module Gitit
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
     def valid?
-      executeCommand("diff --cached --no-ext-diff --ignore-submodules --quiet --exit-code")
-      return true if $?.exitstatus == 1
-      return false
+      execute_command('diff --cached --no-ext-diff --ignore-submodules --quiet --exit-code')
+      $?.exitstatus == 1
     end
     
   end

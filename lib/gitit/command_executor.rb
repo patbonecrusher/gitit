@@ -5,10 +5,9 @@ module Gitit
 
     attr_reader :repo
 
-    def executeCommand(command)
-      gitCommand = ["git", command].join(" ")
-      result = `(cd #{@repo.location} && #{gitCommand} 2>&1)`
-      return result
+    def execute_command(command)
+      gitCommand = ['git', command].join(' ')
+      `(cd #{@repo.location} && #{gitCommand} 2>&1)`
     end
 
   end

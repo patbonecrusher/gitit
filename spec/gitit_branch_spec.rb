@@ -6,17 +6,17 @@ module Gitit
 
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    describe "#testRepoBranch" do
+    describe '#test_repo_branch' do
 
       before(:each) do
         FileUtils.mkpath TEST_REPO_PATH
         git = Git.new(TEST_REPO_PATH)
-        @myRepo = git.repo
-        @myRepo.init
-        @repoBranch = Gitit::Branch.new(@myRepo, "master")
+        @my_repo = git.repo
+        @my_repo.init
+        @repoBranch = Gitit::Branch.new(@my_repo, 'master')
       end
 
-      it "will tell us if the branch is a valid branch" do
+      it 'will tell us if the branch is a valid branch' do
       end
 
       after(:each) do

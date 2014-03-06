@@ -1,4 +1,4 @@
-require "gitit/command_executor"
+require 'gitit/command_executor'
 
 module Gitit
 
@@ -16,33 +16,32 @@ module Gitit
     
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    def getValue(key)
-      value = executeCommand("config #{@location} --null --get #{key}")
-      raise "failure running command" if $?.exitstatus != 0
-      value = value.slice!(0, value.length-1)
-      return value
+    def get_value(key)
+      value = execute_command("config #{@location} --null --get #{key}")
+      raise 'failure running command' if $?.exitstatus != 0
+      value.slice!(0, value.length-1)
     end
     
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    def setValue(key, value)
+    def set_value(key, value)
       val = value
-      executeCommand("config #{@location} \"#{key}\" \"#{val}\"")
-      raise "failure running command" if $?.exitstatus != 0
+      execute_command("config #{@location} \"#{key}\" \"#{val}\"")
+      raise 'failure running command' if $?.exitstatus != 0
     end
     
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    def unsetValue(key)
-      value = executeCommand("config #{@location} --null --unset #{key}")
-      raise "failure running command" if $?.exitstatus != 0
+    def unset_value(key)
+      execute_command("config #{@location} --null --unset #{key}")
+      raise 'failure running command' if $?.exitstatus != 0
     end
     
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    def removeSection(section)
-      executeCommand("config #{@location} --remove-section #{section}")
-      raise "failure running command" if $?.exitstatus != 0
+    def remove_section(section)
+      execute_command("config #{@location} --remove-section #{section}")
+      raise 'failure running command' if $?.exitstatus != 0
     end
     
   end

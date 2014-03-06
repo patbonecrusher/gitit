@@ -1,4 +1,4 @@
-require "gitit/command_executor"
+require 'gitit/command_executor'
 
 module Gitit
 
@@ -15,42 +15,38 @@ module Gitit
 
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    def existsLocally?(name)
-      executeCommand("branch --no-color | sed 's/^[* ] //' | grep #{name}")
-      return true if $?.exitstatus == 0
-      return false
+    def exists_locally?(name)
+      execute_command("branch --no-color | sed 's/^[* ] //' | grep #{name}")
+      $?.exitstatus == 0
     end
     
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    def existsRemotely?(name, remote)
-      executeCommand("branch -r --no-color | sed 's/^[* ] //' | grep #{remote}/#{name}")
-      return true if $?.exitstatus == 0
-      return false
+    def exists_remotely?(name, remote)
+      execute_command("branch -r --no-color | sed 's/^[* ] //' | grep #{remote}/#{name}")
+      $?.exitstatus == 0
     end
 
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    def createLocalBranch(name)
-      executeCommand("branch --quiet #{name}")
-      return true if $?.exitstatus == 0
-      return false
+    def create_local_branch(name)
+      execute_command("branch --quiet #{name}")
+      $?.exitstatus == 0
     end
 
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    def pushLocalBranchToRemote(name, remote, force)
-      executeCommand("push --quiet -f #{remote} #{name}") if force
-      executeCommand("push --quiet #{remote} #{name}") unless force
-      return true if $?.exitstatus == 0
-      return false
+    def push_local_branch_to_remote(name, remote, force)
+      execute_command("push --quiet -f #{remote} #{name}") if force
+      execute_command("push --quiet #{remote} #{name}") unless force
+      $?.exitstatus == 0
     end
 
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
-    def updateFromRemote(branchName, remote)
+    #def update_from_remote(branch_name, remote)
 
-    end
+    #end
     
   end
 

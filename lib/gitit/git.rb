@@ -1,7 +1,7 @@
-require "gitit"
-require "gitit/repo"
+require 'gitit'
+require 'gitit/repo'
 
-Dir[File.dirname(__FILE__) + "/command_*.rb"].each do |file|
+Dir[File.dirname(__FILE__) + '/command_*.rb'].each do |file|
   require file
 end
 
@@ -10,10 +10,10 @@ module Gitit
   # ---------------------------------------------------------------------------
   # ---------------------------------------------------------------------------
   class Git
-    attr_reader :repo;
-    attr_reader :config;
-    attr_reader :status;
-    attr_reader :branches;
+    attr_reader :repo
+    attr_reader :config
+    attr_reader :status
+    attr_reader :branches
 
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-if ENV["COVERAGE"] == 'yes'
+if ENV['COVERAGE'] == 'yes'
   require 'simplecov'
   SimpleCov.start
 end
@@ -19,6 +19,8 @@ RSpec.configure do |config|
     # Redirect stderr and stdout
     $stderr = File.new(File.join(File.dirname(__FILE__), 'null.txt'), 'w')
     $stdout = File.new(File.join(File.dirname(__FILE__), 'null.txt'), 'w')
+    `git config --global user.email "you@example.com"`
+    `git config --global user.name "Your Name"`
   end
   config.after(:all) do 
     $stderr = original_stderr
