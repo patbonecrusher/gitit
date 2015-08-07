@@ -1,11 +1,11 @@
-require 'gitit/command_executor'
+require 'gitit/git_executor'
 
 module Gitit
 
   # ---------------------------------------------------------------------------
   # ---------------------------------------------------------------------------
-  class Branches
-    include CommandExecutor
+  class GitBranches
+    include GitExecutor
     
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
@@ -24,15 +24,15 @@ module Gitit
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
     def exists_locally?(name)
-      execute_command("branch --no-color | sed 's/^[* ] //' | grep #{name}")
-      $?.exitstatus == 0
+      branches = execute_command('branch --no-color').gsub(/^[* ] /, '').lines.map(&:chomp).to_a
+      branches.include? name
     end
     
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
     def exists_remotely?(name, remote)
-      execute_command("branch -r --no-color | sed 's/^[* ] //' | grep #{remote}/#{name}")
-      $?.exitstatus == 0
+      branches = execute_command('branch -r --no-color').gsub(/^[* ] /, '').lines.map(&:chomp).to_a
+      branches.include? "#{remote}/#{name}"
     end
 
     # -------------------------------------------------------------------------

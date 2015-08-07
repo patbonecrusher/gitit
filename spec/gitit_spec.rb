@@ -2,36 +2,31 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 module Gitit
 
-  describe Repo do
+  describe GitRepo do
 
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
     describe '#initialize' do
 
-      TMP_PATH = '/tmp/'
-      BAD_PATH = '/adsdsadasdsa'
-      TEST_REPO_PATH = '/tmp/test_git'
-      TEST_REPO_PATH_BARE = '/tmp/test_git_bare'
-    
       before(:each) do
       end
 
       it 'will open fine given a valid repo' do
-        lambda{Git.new(Dir.pwd)}.should_not raise_error
+        expect { Git.new(Dir.pwd) }.to_not raise_exception
       end
 
       it 'will throw an error given an invalid repo' do
-        lambda{Git.new(BAD_PATH)}.should raise_error
+        expect { Git.new(BAD_PATH) }.to raise_exception
       end
 
       it 'will return true on valid repo' do
-        myRepo = Git.new(Dir.pwd).repo
-        myRepo.valid?.should eq true 
+        my_repo = Git.new(Dir.pwd).repo
+        expect(my_repo.valid?).to be_truthy
       end
 
       it 'will return false on invalid repo' do
-        myRepo = Git.new(TMP_PATH).repo
-        myRepo.valid?.should eq false
+        my_repo = Git.new(TMP_PATH).repo
+        expect(my_repo.valid?).to be_falsey
       end
 
     end
@@ -41,25 +36,26 @@ module Gitit
     describe '#initNewRepo' do
 
       before(:each) do
-        FileUtils.mkpath TEST_REPO_PATH
-        git = Git.new(TEST_REPO_PATH)
+        @repo_path = Dir.mktmpdir #{|dir| @repo_path = dir }
+
+        git = Git.new(@repo_path)
         @my_repo = git.repo
       end
     
       it 'will initialize a new repo on an existing folder' do
-        @my_repo.valid?.should eq false
-        lambda{@my_repo.init}.should_not raise_error
+        expect(@my_repo.valid?).to be_falsey
+        expect { @my_repo.init }.to_not raise_exception
       end
 
       it 'will fail to initialize a new repo on an existing folder already initialized' do
-        @my_repo.valid?.should eq false
-        lambda{@my_repo.init}.should_not raise_error
-        @my_repo.valid?.should eq true
-        lambda{@my_repo.init}.should raise_error
+        expect(@my_repo.valid?).to be_falsey
+        expect { @my_repo.init }.to_not raise_exception
+        expect(@my_repo.valid?).to be_truthy
+        expect { @my_repo.init }.to raise_exception
       end
 
       after(:each) do
-        FileUtils.rm_rf TEST_REPO_PATH
+        FileUtils.rm_rf @repo_path
       end
 
     end

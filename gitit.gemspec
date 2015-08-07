@@ -18,15 +18,12 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.licenses      = ["MIT"]
 
-  
-  gem.add_development_dependency 'rspec' 
+
+  gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'cli-colorize'
   gem.add_development_dependency 'rdoc', '>= 3.12'
   gem.add_development_dependency 'cucumber', '>= 1.0'
   gem.add_development_dependency 'bundler', '>= 1.0.0'
   gem.add_development_dependency 'simplecov'
-
-  gem.add_dependency 'ruby'
-  gem.add_dependency 'builder'
 
 end

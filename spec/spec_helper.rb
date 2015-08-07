@@ -1,3 +1,9 @@
+
+TMP_PATH = '/tmp/'
+BAD_PATH = '/adsdsadasdsa'
+TEST_REPO_PATH = '/tmp/test_git'
+TEST_REPO_PATH_BARE = '/tmp/test_git_bare'
+
 if ENV['COVERAGE'] == 'yes'
   require 'simplecov'
   SimpleCov.start

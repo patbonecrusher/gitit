@@ -6,7 +6,7 @@ begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
   $stderr.puts e.message
-  $stderr.puts "Run `bundle install` to install missing gems"
+  $stderr.puts 'Run `bundle install` to install missing gems'
   exit e.status_code
 end
 require 'rake'
@@ -29,7 +29,7 @@ require 'rspec/core'
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec) do |spec|
   spec.pattern = FileList['spec/**/*_spec.rb']
-  spec.rspec_opts = Dir.glob("[0-9][0-9][0-9]_*").collect { |x| "-I#{x}" }
+  spec.rspec_opts = Dir.glob('[0-9][0-9][0-9]_*').collect { |x| "-I#{x}" }
   spec.rspec_opts << '--color -f d'
 end
 
@@ -40,7 +40,7 @@ end
 
 RSpec::Core::RakeTask.new(:coverage) do |spec|
   # add simplecov
-  ENV["COVERAGE"] = 'yes'
+  ENV['COVERAGE'] = 'yes'
 
   # run the specs
   Rake::Task['spec'].execute
@@ -53,7 +53,7 @@ task :default => :spec
 
 require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
+  version = File.exist?('VERSION') ? File.read('VERSION') : ''
 
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "gitit #{version}"

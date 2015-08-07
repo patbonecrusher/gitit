@@ -1,11 +1,11 @@
-require 'gitit/command_executor'
+require 'gitit/git_executor'
 
 module Gitit
 
   # ---------------------------------------------------------------------------
   # ---------------------------------------------------------------------------
-  class Status
-    include CommandExecutor
+  class GitStatus
+    include GitExecutor
     
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
@@ -36,8 +36,12 @@ module Gitit
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
     def untracked_files?
-      execute_command('status --porcelain | grep ??')
-      $?.exitstatus == 0
+      # execute_command('status --porcelain | grep ??')
+      # $?.exitstatus == 0
+
+      result = execute_command('status --porcelain')
+      match = result.each_line.select { |b| b.start_with? '?? ' }
+      match.length > 0
     end
     
   end

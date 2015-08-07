@@ -1,7 +1,8 @@
 require 'gitit'
-require 'gitit/repo'
+#require 'gitit/git_repo'
 
-Dir[File.dirname(__FILE__) + '/command_*.rb'].each do |file|
+Dir[File.dirname(__FILE__) + '/git_*.rb'].each do |file|
+  # noinspection RubyResolve
   require file
 end
 
@@ -18,10 +19,10 @@ module Gitit
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
     def initialize(location)
-      @repo = Repo.new(location)
-      @config = Config.new(repo)
-      @status = Status.new(repo)
-      @branches = Branches.new(repo)
+      @repo = GitRepo.new(location)
+      @config = GitConfig.new(repo)
+      @status = GitStatus.new(repo)
+      @branches = GitBranches.new(repo)
     end
   end
 

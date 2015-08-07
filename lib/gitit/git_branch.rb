@@ -1,13 +1,13 @@
-require 'gitit/command_executor'
+require 'gitit/git_executor'
 
 module Gitit
 
   # ---------------------------------------------------------------------------
   # ---------------------------------------------------------------------------
-  class Branch
-    include CommandExecutor
+  class GitBranch
+    include GitExecutor
 
-    attr_reader :name;
+    attr_reader :name
     
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
