@@ -19,11 +19,12 @@ Gem::Specification.new do |gem|
   gem.licenses      = ['MIT']
 
 
-  gem.add_development_dependency 'rspec', '~> 0'
-  gem.add_development_dependency 'cli-colorize', '~> 0'
-  gem.add_development_dependency 'rdoc', '~> 3.12'
-  gem.add_development_dependency 'cucumber', '~> 1.0'
-  gem.add_development_dependency 'bundler', '~> 1.0'
-  gem.add_development_dependency 'simplecov', '~> 0'
+  gem.add_development_dependency 'cucumber'
+  gem.add_development_dependency 'bundler', '~> 1.3'
+  gem.add_development_dependency 'rake', '= 10.3.1'
+  gem.add_development_dependency 'rspec', '= 3.3.0'
+  gem.add_development_dependency 'guard-rspec', '= 4.2.8'
+  gem.add_development_dependency 'cli-colorize', '= 2.0.0'
+  gem.add_development_dependency 'simplecov', '= 0.8.2'
 
 end

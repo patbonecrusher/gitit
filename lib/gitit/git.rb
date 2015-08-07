@@ -1,5 +1,8 @@
 require 'gitit'
-#require 'gitit/git_repo'
+require 'gitit/git_repo'
+require 'gitit/git_config'
+require 'gitit/git_branches'
+require 'gitit/git_status'
 
 Dir[File.dirname(__FILE__) + '/git_*.rb'].each do |file|
   # noinspection RubyResolve
